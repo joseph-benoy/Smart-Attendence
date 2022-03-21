@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./build/index.js",
-    "debug":"export DEBUG=* && nodemon ./index.ts",
-    "build":"tsc -p .",
+    "debug": "nodemon --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' index.ts",
+    "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,9 +17,11 @@
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "sequelize": "^6.17.0"
+    "sequelize": "^6.17.0",
+    "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
