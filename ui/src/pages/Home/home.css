@@ -5,3 +5,14 @@
     padding: 0rem 20rem;
     padding-top: 5rem;
 }
+#login h2{
+    text-align: center;
+    display: block;
+    margin-bottom: 2rem;
+}
+@media only screen and (max-width: 786px) {
+    #login{
+        padding: 0rem 1rem;
+        padding-top: 3rem;
+    }
+  }

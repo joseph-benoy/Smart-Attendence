@@ -40,14 +40,6 @@ export default function TeacherRegistration (props: ITeacherRegistrationProps) {
                 </Button>
             </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={props.handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

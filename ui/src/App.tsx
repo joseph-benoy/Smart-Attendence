@@ -6,7 +6,7 @@ import Regsiter from './pages/Regsiter';
 function App() {
   return (
     <div className="App">
-      <Regsiter/>
+      <Home/>
     </div>
   );
 }

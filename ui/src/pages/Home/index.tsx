@@ -3,6 +3,7 @@ import * as React from 'react';
 import Header from "../../layout/Header";
 import { Form ,Button, Container, Row, Col} from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { loginAdmin } from "../../services/login";
 
 export interface IAppProps {
 }
@@ -14,7 +15,21 @@ type Inputs = {
 
 export default function Home (props: IAppProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const [type,setType] = React.useState<string>("admin");
+    const onSubmit: SubmitHandler<Inputs> = React.useCallback((data)=>{
+        if(type==="admin"){
+            loginAdmin(data);
+        }
+        else if(type==="student"){
+            loginAdmin(data);
+        }
+        else{
+            loginAdmin(data);
+        }
+    },[type]);
+    const changeType:React.ChangeEventHandler<HTMLSelectElement>  = (e:React.FormEvent<HTMLSelectElement>)=>{
+        setType((e.target as HTMLSelectElement).value);
+    }
   return (
     <div>
       <Header/>
@@ -22,9 +37,10 @@ export default function Home (props: IAppProps) {
             <Row>
                 <Col id="login">
                     <Form onSubmit={handleSubmit(onSubmit)}>
+                        <h2>Login</h2>
                         <Form.Group className="mb-3">
                             <Form.Label>Designation</Form.Label>
-                            <Form.Select>
+                            <Form.Select onChange={changeType}>
                                 <option>Admin</option>
                                 <option>Teacher</option>
                                 <option>Student</option>
