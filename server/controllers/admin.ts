@@ -1,11 +1,21 @@
 import { NextFunction,Request,Response } from "express";
-import { unAuthorizedRequest } from "../errors/customError";
+import { badRequest, unAuthorizedRequest } from "../errors/customError";
 import { loginAdmin } from "../services/admin";
 
 export const login = async(req:Request,res:Response,next:NextFunction)=>{
     try{
-        const {email,password} = req.body;
-        loginAdmin(email,password,res,next);
+        if(req.body.email){
+            if(req.body.password){
+                console.log("sdf")
+                loginAdmin(req.body.email,req.body.password,res,next);
+            }
+            else{
+                next(badRequest("Missing password"));
+            }
+        }   
+        else{
+            next(badRequest("Missing email"));
+        }
     }
     catch(e){
         next(unAuthorizedRequest("Invalid credentials"));

@@ -4,6 +4,7 @@ import Header from "../../layout/Header";
 import { Form ,Button, Container, Row, Col} from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginAdmin } from "../../services/login";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 export interface IAppProps {
 }
@@ -16,19 +17,25 @@ type Inputs = {
 export default function Home (props: IAppProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const [type,setType] = React.useState<string>("admin");
-    const onSubmit: SubmitHandler<Inputs> = React.useCallback((data)=>{
+    const nav:NavigateFunction = useNavigate();
+    const onSubmit: SubmitHandler<Inputs> = React.useCallback(async(data)=>{
         if(type==="admin"){
-            loginAdmin(data);
+            if(await loginAdmin(data)){
+                nav("/register");
+            }
         }
         else if(type==="student"){
-            loginAdmin(data);
+            //loginAdmin(data);
         }
         else{
-            loginAdmin(data);
+            //loginAdmin(data);
         }
     },[type]);
     const changeType:React.ChangeEventHandler<HTMLSelectElement>  = (e:React.FormEvent<HTMLSelectElement>)=>{
         setType((e.target as HTMLSelectElement).value);
+    }
+    const goToReg = ()=>{
+        nav("/register");
     }
   return (
     <div>
@@ -57,7 +64,7 @@ export default function Home (props: IAppProps) {
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>
-                        <Button variant="link">Register</Button>
+                        <Button variant="link" onClick={goToReg}>Register</Button>
                     </Form>
                 </Col>
             </Row>

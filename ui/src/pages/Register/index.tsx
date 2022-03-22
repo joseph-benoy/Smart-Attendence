@@ -8,7 +8,7 @@ import StudentRegistration from "./Student";
 export interface IRegsiterProps {
 }
 
-export default function Regsiter (props: IRegsiterProps) {
+export default function Register (props: IRegsiterProps) {
     const [tModal,setTModal] = React.useState<boolean>(false);
     const [sModal,setSModal] = React.useState<boolean>(false);
     const handleCloseT = React.useCallback(()=>{
