@@ -5,7 +5,8 @@ import { Form ,Button, Container, Row, Col} from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginAdmin } from "../../services/login";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-
+import { useAppDispatch } from "../../hooks/store";
+import { adminLogin } from "../../store/slices/auth";
 export interface IAppProps {
 }
 
@@ -18,9 +19,11 @@ export default function Home (props: IAppProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const [type,setType] = React.useState<string>("admin");
     const nav:NavigateFunction = useNavigate();
+    const dispatch = useAppDispatch();
     const onSubmit: SubmitHandler<Inputs> = React.useCallback(async(data)=>{
         if(type==="admin"){
             if(await loginAdmin(data)){
+                dispatch(adminLogin());
                 nav("/register");
             }
         }
