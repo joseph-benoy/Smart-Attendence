@@ -12,7 +12,7 @@ function App() {
           <Routes>
           <Route path="/" element={<Home/>}></Route>
           <Route path="/register" element={<Register/>}></Route>
-            <Route path="/admin" element={<ProtectedRoute component={<Admin/>}/>}></Route>
+            <Route path="/admin" element={<ProtectedRoute type="admin" component={<Admin/>}/>}></Route>
           </Routes>
       </div>
     </Router>
