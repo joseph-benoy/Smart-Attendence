@@ -7,24 +7,21 @@ export interface ProtectedRouteProps{
 }
 
 export default function ProtectedRoute ({ component,type}:ProtectedRouteProps):JSX.Element {
+    const {isAdminAuth,isStudentAuth,isTeacherAuth} = useAppSelector((state)=>state.auth);
     if(type==="admin"){
-        const isAdmin = useAppSelector((state)=>state.auth.isAdminAuth);
-        if(!isAdmin){
+        if(!isAdminAuth){
             return <Navigate to="/"/>
         }
     }
     else if(type==="student"){
-        const isStudent = useAppSelector((state)=>state.auth.isStudentAuth);
-        if(!isStudent){
+        if(!isStudentAuth){
             return <Navigate to="/"/>
         }
     }
     else{
-        const isTeacher = useAppSelector((state)=>state.auth.isTeacherAuth);
-        if(!isTeacher){
+        if(!isTeacherAuth){
             return <Navigate to="/"/>
         }
     }
-
     return component;
 }
