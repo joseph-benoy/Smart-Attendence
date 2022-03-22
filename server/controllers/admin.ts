@@ -1,8 +1,13 @@
 import { NextFunction,Request,Response } from "express";
+import { unAuthorizedRequest } from "../errors/customError";
 import { loginAdmin } from "../services/admin";
 
-export const login = (req:Request,res:Response,next:NextFunction)=>{
-    const {email,password} = req.body;
-    const result = loginAdmin(email,password);
-    return res.json(result);
+export const login = async(req:Request,res:Response,next:NextFunction)=>{
+    try{
+        const {email,password} = req.body;
+        loginAdmin(email,password,res,next);
+    }
+    catch(e){
+        next(unAuthorizedRequest("Invalid credentials"));
+    }
 }
