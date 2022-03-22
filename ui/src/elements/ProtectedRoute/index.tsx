@@ -8,7 +8,7 @@ export interface ProtectedRouteProps{
 export default function ProtectedRoute ({ component, ...restOfProps }:ProtectedRouteProps):JSX.Element {
     const isAdmin = useAppSelector((state)=>state.auth.isAdminAuth);
     if(!isAdmin){
-        return <Navigate to="/home"/>
+        return <Navigate to="/"/>
     }
     return component;
 }

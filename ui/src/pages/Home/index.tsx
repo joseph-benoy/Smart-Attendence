@@ -24,7 +24,7 @@ export default function Home (props: IAppProps) {
         if(type==="admin"){
             if(await loginAdmin(data)){
                 dispatch(adminLogin());
-                nav("/register");
+                nav("/admin");
             }
         }
         else if(type==="student"){
