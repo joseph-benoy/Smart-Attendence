@@ -30,6 +30,7 @@ export const getDepartments = async(req:Request,res:Response,next:NextFunction)=
     }
 }
 export const deleteDept = async(req:Request,res:Response,next:NextFunction)=>{
+    console.log(req.body);
     try{
         if(req.body.id){
             const result = await deleteDepartment(req.body.id);
