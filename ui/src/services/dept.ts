@@ -26,3 +26,13 @@ export const deleteDept =async (id:number) => {
         alert("Couldn't delete department");
     }
 }
+export const addNewDept =async (name:string) => {
+    try{
+        const query = qs.stringify({name:name});
+        await axios.post(apiUrls.dept.new,query);
+        alert("Department "+name+" added!");
+    }
+    catch(e){
+        alert("Couldn't add new department")
+    }
+}

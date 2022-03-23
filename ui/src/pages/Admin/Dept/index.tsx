@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Button, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Button, Col, Container, ListGroup, ListGroupItem, Row,Form} from 'react-bootstrap';
 import { Plus, Trash} from 'react-bootstrap-icons';
-import { deleteDept, getAllDepts } from '../../../services/dept';
+import { addNewDept, deleteDept, getAllDepts } from '../../../services/dept';
 
 export interface IDeptProps {
 }
@@ -14,6 +14,7 @@ interface dept{
 export default function Dept (props: IDeptProps) {
     const [depts,setDepts] = React.useState<Array<dept>>([]);
     const [reload,setReload] = React.useState<Boolean>(false);
+    const [deptName,setDeptName] = React.useState<string>("");
     React.useEffect(()=>{
         (
             async()=>{
@@ -27,11 +28,21 @@ export default function Dept (props: IDeptProps) {
             }
         )()
     },[reload]);
+    const add = ()=>{
+        addNewDept(deptName);
+        setReload(!reload);
+        setDeptName("");
+    }
   return (
     <Container>
         <Row>
-            <Col>
-                <Button variant='dark' className="float-end"><Plus/></Button>
+            <Col lg={11}>
+                <Form.Group className="mb-3">
+                    <Form.Control value={deptName} id="addDept" type="text" placeholder="Department name" onChange={(e)=>setDeptName(e.target.value)} />
+                </Form.Group>
+            </Col>
+            <Col lg={1}>
+                <Button variant='dark' onClick={add}><Plus/></Button>
             </Col>
         </Row>
         <Row>
