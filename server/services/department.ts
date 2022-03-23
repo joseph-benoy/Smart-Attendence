@@ -11,3 +11,12 @@ export const addDept = async(name:string)=>{
         return false;
     }
 }
+export const getAllDepts = async()=>{
+    try{
+        const result = await models.dept.findAll();
+        return result;
+    }
+    catch(e){
+        return false;
+    }
+}
