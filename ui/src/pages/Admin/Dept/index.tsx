@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Col, Container, ListGroup, ListGroupItem, Row,Form} from 'react-bootstrap';
 import { Plus, Trash} from 'react-bootstrap-icons';
+import useDept from '../../../hooks/useDept';
 import { addNewDept, deleteDept, getAllDepts } from '../../../services/dept';
 import { dept } from '../../../types/dept';
 
@@ -9,22 +10,9 @@ export interface IDeptProps {
 
 
 export default function Dept (props: IDeptProps) {
-    const [depts,setDepts] = React.useState<Array<dept>>([]);
-    const [reload,setReload] = React.useState<Boolean>(false);
+    const [reload,setReload] = React.useState<boolean>(false);
+    const depts = useDept(reload);
     const [deptName,setDeptName] = React.useState<string>("");
-    React.useEffect(()=>{
-        (
-            async()=>{
-                try{
-                const data = await getAllDepts();
-                setDepts(data);
-                }
-                catch(e){
-                    alert("Couldn't fetch departements");
-                }
-            }
-        )()
-    },[reload]);
     const add = ()=>{
         addNewDept(deptName);
         setReload(!reload);
