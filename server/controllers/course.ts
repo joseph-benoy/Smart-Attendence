@@ -1,6 +1,6 @@
 import { NextFunction,Request,Response } from "express";
 import { badRequest, internalServerError} from "../errors/customError";
-import { addCourse } from "../services/course";
+import { addCourse, deleteCourse, getAllCourses } from "../services/course";
 
 
 export const addNewCourse =async (req:Request,res:Response,next:NextFunction) => {
@@ -22,6 +22,35 @@ export const addNewCourse =async (req:Request,res:Response,next:NextFunction) =>
         }
     }
     catch(e){
-
+        next(internalServerError("something went wrong"))
+    }
+}
+export const getCourses = async(req:Request,res:Response,next:NextFunction)=>{
+    try{
+        const result:{error:string} | any = await getAllCourses();
+        if(result.error){
+            next(internalServerError(result.error))
+        }
+        return res.json(result);
+    }
+    catch(e){
+        next(internalServerError("something went wrong"));
+    }
+}
+export const deleteCourseById = async(req:Request,res:Response,next:NextFunction)=>{
+    try{
+        if(req.body.id){
+            const result:{error:string} | any = await deleteCourse(req.body.id);
+            if(result.error){
+                next(internalServerError(result.error))
+            }
+            return res.json(result);
+        }
+        else{
+            next(badRequest("id is missing"));
+        }
+    }
+    catch(e){
+        next(internalServerError("something went wrong"));
     }
 }
