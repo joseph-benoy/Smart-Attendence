@@ -2,6 +2,7 @@ import * as React from 'react';
 import HeaderPlain from '../../layout/HeaderPlain';
 import { Tabs,Tab } from 'react-bootstrap';
 import Dept from './Dept';
+import Course from './Course';
 export interface IAdminProps {
 }
 
@@ -15,6 +16,7 @@ export default function Admin (props: IAdminProps) {
           <Dept/>
         </Tab>
         <Tab eventKey="courses" title="Courses">
+          <Course/>
         </Tab>
         <Tab eventKey="teachers" title="Teachers">
         </Tab>

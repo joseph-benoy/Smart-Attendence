@@ -2,14 +2,11 @@ import * as React from 'react';
 import { Button, Col, Container, ListGroup, ListGroupItem, Row,Form} from 'react-bootstrap';
 import { Plus, Trash} from 'react-bootstrap-icons';
 import { addNewDept, deleteDept, getAllDepts } from '../../../services/dept';
+import { dept } from '../../../types/dept';
 
 export interface IDeptProps {
 }
 
-interface dept{
-    name:string,
-    id:number
-}
 
 export default function Dept (props: IDeptProps) {
     const [depts,setDepts] = React.useState<Array<dept>>([]);
