@@ -1,5 +1,5 @@
 import { NextFunction,Request,Response } from "express";
-import { badRequest, internalServerError, unAuthorizedRequest } from "../errors/customError";
+import { badRequest, internalServerError} from "../errors/customError";
 import { addDept, deleteDepartment, getAllDepts } from "../services/department";
 
 export const newDepartment = async(req:Request,res:Response,next:NextFunction)=>{
