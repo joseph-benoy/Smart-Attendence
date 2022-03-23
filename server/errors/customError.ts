@@ -13,3 +13,9 @@ export const unAuthorizedRequest = (message:string):Error=>{
         message:message
     };
 }
+export const internalServerError = (message:string):Error=>{
+    return {
+        statusCode:StatusCodes.INTERNAL_SERVER_ERROR,
+        message:message
+    };
+}
