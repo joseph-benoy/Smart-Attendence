@@ -6,6 +6,7 @@ import Course from './Course';
 import { useAppDispatch } from '../../hooks/store';
 import { adminLogout } from '../../store/slices/auth';
 import { useNavigate } from 'react-router-dom';
+import Teachers from './Teachers';
 export interface IAdminProps {
 }
 
@@ -28,6 +29,7 @@ export default function Admin (props: IAdminProps) {
           <Course/>
         </Tab>
         <Tab eventKey="teachers" title="Teachers">
+          <Teachers/>
         </Tab>
         <Tab eventKey="student" title="Students">
         </Tab>

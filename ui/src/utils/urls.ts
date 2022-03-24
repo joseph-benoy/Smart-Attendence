@@ -9,5 +9,8 @@ export const apiUrls = {
         new:"/api/course/new",
         getAllByDepts:"/api/course/allbydepartment",
         delete:"/api/course/delete"
+    },
+    teacher:{
+        getAllTeachersByDept:"/api/teacher/bydepts"
     }
 }

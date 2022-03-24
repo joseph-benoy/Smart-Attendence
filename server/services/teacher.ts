@@ -47,3 +47,20 @@ export const getTeachersByDepts =async () => {
         }
     }
 }
+export const deleteTeacher =async (id:number) => {
+    try{
+        await models.teacher.destroy({
+            where:{
+                id:id
+            }
+        })
+        return{
+            message:"removed teacher"
+        }
+    }
+    catch(e){
+        return{
+            error:e.message
+        }
+    }
+}

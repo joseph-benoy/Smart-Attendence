@@ -1,6 +1,6 @@
 import { NextFunction,Request,Response } from "express";
 import { badRequest, internalServerError} from "../errors/customError";
-import { getTeachersByDepts, newTeacher } from "../services/teacher";
+import { deleteTeacher, getTeachersByDepts, newTeacher } from "../services/teacher";
 
 export const newTeacherAccount =async (req:Request,res:Response,next:NextFunction) => {
     try{
@@ -34,6 +34,21 @@ export const getAllTeachersBydepartment = async(req:Request,res:Response,next:Ne
             throw new Error(result.error);
         }
         return res.json(result);
+    }
+    catch(e){
+        next(internalServerError("Something went wrong : "+e));
+    }
+}
+export const removeTeacher =async (req:Request,res:Response,next:NextFunction) => {
+    try{
+        if(req.body.id){
+            const result = await deleteTeacher(req.body.id);
+            if(result.error){
+                throw new Error(result.error);
+            }
+            return res.json(result);
+        }
+        next(badRequest("id is missing"));
     }
     catch(e){
         next(internalServerError("Something went wrong : "+e));
