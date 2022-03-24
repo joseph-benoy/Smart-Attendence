@@ -11,6 +11,7 @@ export const apiUrls = {
         delete:"/api/course/delete"
     },
     teacher:{
-        getAllTeachersByDept:"/api/teacher/bydepts"
+        getAllTeachersByDept:"/api/teacher/bydepts",
+        delete:"/api/teacher/delete"
     }
 }
