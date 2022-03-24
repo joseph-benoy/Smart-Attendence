@@ -42,6 +42,11 @@ export default function Course (props: ICourseProps) {
                 <Button variant="dark" onClick={()=>addCourse(courseName,did)}><Plus/></Button>
             </Col>
         </Row>
+        <Row>
+            <Col>
+                        
+            </Col>
+        </Row>
     </Container>
   );
 }
