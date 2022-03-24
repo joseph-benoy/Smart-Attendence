@@ -42,6 +42,8 @@ export function initModels(sequelize: Sequelize) {
   course.hasMany(student, { as: "students", foreignKey: "cid"});
   course.belongsTo(dept, { as: "did_dept", foreignKey: "did"});
   dept.hasMany(course, { as: "courses", foreignKey: "did"});
+  teacher.belongsTo(dept, { as: "did_dept", foreignKey: "did"});
+  dept.hasMany(teacher, { as: "teachers", foreignKey: "did"});
 
   return {
     admin: admin,

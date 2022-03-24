@@ -85,7 +85,7 @@ export class student extends Model<studentAttributes, studentCreationAttributes>
         ]
       },
       {
-        name: "cid",
+        name: "student_ibfk_1",
         using: "BTREE",
         fields: [
           { name: "cid" },

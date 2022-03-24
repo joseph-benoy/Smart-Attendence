@@ -7,12 +7,15 @@ export const newTeacherAccount =async (req:Request,res:Response,next:NextFunctio
         if(req.body.name){
             if(req.body.email){
                 if(req.body.did){
-                    const {name,email,did} = req.body;
-                    const result = await newTeacher(name,email,did);
-                    if(result.error){
-                        throw new Error(result.error);
+                    if(req.body.password){
+                        const {name,email,did,password} = req.body;
+                        const result = await newTeacher(name,email,did,password);
+                        if(result.error){
+                            throw new Error(result.error);
+                        }
+                        return res.status(201).json(result);
                     }
-                    return res.status(201).json(result);
+                    next(badRequest("missing password"));
                 }
                 next(badRequest("missing did"));
             }

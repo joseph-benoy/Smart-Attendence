@@ -1,11 +1,13 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { dept, deptId } from './dept';
 
 export interface teacherAttributes {
   id: number;
   name: string;
   email: string;
   did: number;
+  password: string;
 }
 
 export type teacherPk = "id";
@@ -18,7 +20,13 @@ export class teacher extends Model<teacherAttributes, teacherCreationAttributes>
   name!: string;
   email!: string;
   did!: number;
+  password!: string;
 
+  // teacher belongsTo dept via did
+  did_dept!: dept;
+  getDid_dept!: Sequelize.BelongsToGetAssociationMixin<dept>;
+  setDid_dept!: Sequelize.BelongsToSetAssociationMixin<dept, deptId>;
+  createDid_dept!: Sequelize.BelongsToCreateAssociationMixin<dept>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof teacher {
     return teacher.init({
@@ -39,6 +47,14 @@ export class teacher extends Model<teacherAttributes, teacherCreationAttributes>
     },
     did: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'dept',
+        key: 'id'
+      }
+    },
+    password: {
+      type: DataTypes.STRING(500),
       allowNull: false
     }
   }, {
@@ -60,6 +76,13 @@ export class teacher extends Model<teacherAttributes, teacherCreationAttributes>
         using: "BTREE",
         fields: [
           { name: "email" },
+        ]
+      },
+      {
+        name: "did",
+        using: "BTREE",
+        fields: [
+          { name: "did" },
         ]
       },
     ]

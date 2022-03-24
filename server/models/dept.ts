@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { course, courseId } from './course';
+import type { teacher, teacherId } from './teacher';
 
 export interface deptAttributes {
   id: number;
@@ -28,6 +29,18 @@ export class dept extends Model<deptAttributes, deptCreationAttributes> implemen
   hasCourse!: Sequelize.HasManyHasAssociationMixin<course, courseId>;
   hasCourses!: Sequelize.HasManyHasAssociationsMixin<course, courseId>;
   countCourses!: Sequelize.HasManyCountAssociationsMixin;
+  // dept hasMany teacher via did
+  teachers!: teacher[];
+  getTeachers!: Sequelize.HasManyGetAssociationsMixin<teacher>;
+  setTeachers!: Sequelize.HasManySetAssociationsMixin<teacher, teacherId>;
+  addTeacher!: Sequelize.HasManyAddAssociationMixin<teacher, teacherId>;
+  addTeachers!: Sequelize.HasManyAddAssociationsMixin<teacher, teacherId>;
+  createTeacher!: Sequelize.HasManyCreateAssociationMixin<teacher>;
+  removeTeacher!: Sequelize.HasManyRemoveAssociationMixin<teacher, teacherId>;
+  removeTeachers!: Sequelize.HasManyRemoveAssociationsMixin<teacher, teacherId>;
+  hasTeacher!: Sequelize.HasManyHasAssociationMixin<teacher, teacherId>;
+  hasTeachers!: Sequelize.HasManyHasAssociationsMixin<teacher, teacherId>;
+  countTeachers!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof dept {
     return dept.init({

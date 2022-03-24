@@ -80,7 +80,7 @@ export class course extends Model<courseAttributes, courseCreationAttributes> im
         ]
       },
       {
-        name: "did",
+        name: "course_ibfk_1",
         using: "BTREE",
         fields: [
           { name: "did" },
