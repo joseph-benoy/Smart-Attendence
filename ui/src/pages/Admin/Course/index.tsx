@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Button, Col, Container, ListGroup, ListGroupItem, Row,Form} from 'react-bootstrap';
 import { Plus, Trash} from 'react-bootstrap-icons';
+import useDept from '../../../hooks/useDept';
+import { addCourse } from '../../../services/course';
 import { dept } from '../../../types/dept';
 
 export interface ICourseProps {
@@ -13,9 +15,9 @@ interface course{
 }
 export default function Course (props: ICourseProps) {
     const [courseName,setCoursename] = React.useState<string>("");
-    const [did,setDid] = React.useState<number>();
+    const [did,setDid] = React.useState<string>("");
     const [courses,setCourses] = React.useState<Array<course>>();
-    const [depts,setDepts] = React.useState<Array<dept>>();
+    const depts = useDept();
   return (
     <Container>
         <Row>
@@ -26,16 +28,18 @@ export default function Course (props: ICourseProps) {
             </Col>
             <Col lg={4}>
                 <Form.Group className="mb-3">
-                    <Form.Select>
+                    <Form.Select onChange={(e)=>setDid(e.target.value)}>
                         <option disabled selected>choose Department</option>
                         {
-                            
+                            depts.map((item:dept)=>(
+                                <option value={item.id}>{item.name}</option>
+                            ))
                         }
                     </Form.Select>
                 </Form.Group>
             </Col>
             <Col lg={1}>
-                <Button variant="dark"><Plus/></Button>
+                <Button variant="dark" onClick={()=>addCourse(courseName,did)}><Plus/></Button>
             </Col>
         </Row>
     </Container>
