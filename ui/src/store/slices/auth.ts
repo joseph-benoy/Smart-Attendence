@@ -9,9 +9,11 @@ export const authSlice = createSlice({
     },
     reducers:{
         adminLogin:(state)=>{
+            sessionStorage.setItem("adminLogin","yes");
             state.isAdminAuth = true;
         },
         adminLogout:(state)=>{
+            sessionStorage.removeItem("adminLogin");
             state.isAdminAuth = false;
         }
     }

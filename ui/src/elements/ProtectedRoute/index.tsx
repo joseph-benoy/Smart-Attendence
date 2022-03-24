@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/store';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { adminLogin } from '../../store/slices/auth';
 
 export interface ProtectedRouteProps{
     component:JSX.Element,
@@ -8,6 +10,10 @@ export interface ProtectedRouteProps{
 
 export default function ProtectedRoute ({ component,type}:ProtectedRouteProps):JSX.Element {
     const {isAdminAuth,isStudentAuth,isTeacherAuth} = useAppSelector((state)=>state.auth);
+    const dispatch = useAppDispatch();
+    if(sessionStorage.getItem("adminLogin")){
+        dispatch(adminLogin());
+    }
     if(type==="admin"){
         if(!isAdminAuth){
             return <Navigate to="/"/>
