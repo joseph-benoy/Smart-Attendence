@@ -6,6 +6,8 @@ export const apiUrls = {
         delete:"/api/department/delete"
     },
     course:{
-        new:"/api/course/new"
+        new:"/api/course/new",
+        getAllByDepts:"/api/course/allbydepartment",
+        delete:"/api/course/delete"
     }
 }

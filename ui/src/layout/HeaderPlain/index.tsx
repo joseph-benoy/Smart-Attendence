@@ -8,7 +8,7 @@ export interface IHeaderProps {
 export default function HeaderPlain (props: IHeaderProps) {
   return (
     <div>
-      <Navbar bg="light" expand={false}>
+      <Navbar bg="dark" expand={false} variant="dark">
         <Container fluid>
             <Navbar.Brand href="#">Edu</Navbar.Brand>
         </Container>

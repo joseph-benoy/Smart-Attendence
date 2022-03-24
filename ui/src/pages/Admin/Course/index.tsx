@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Button, Col, Container, ListGroup, ListGroupItem, Row,Form} from 'react-bootstrap';
 import { Plus, Trash} from 'react-bootstrap-icons';
+import useCourse from '../../../hooks/useCourse';
 import useDept from '../../../hooks/useDept';
-import { addCourse } from '../../../services/course';
+import { addCourse, deleteCourse } from '../../../services/course';
+import { dcourse } from '../../../types/course';
 import { dept } from '../../../types/dept';
 
 export interface ICourseProps {
@@ -16,8 +18,14 @@ interface course{
 export default function Course (props: ICourseProps) {
     const [courseName,setCoursename] = React.useState<string>("");
     const [did,setDid] = React.useState<string>("");
-    const [courses,setCourses] = React.useState<Array<course>>();
+    const [reload,setReload] = React.useState<boolean>(false);
+    const courses:dcourse[] = useCourse(reload);
     const depts = useDept();
+    const add = ()=>{
+        addCourse(courseName,did);
+        setReload(!reload);
+        setCoursename("");
+    }
   return (
     <Container>
         <Row>
@@ -39,12 +47,26 @@ export default function Course (props: ICourseProps) {
                 </Form.Group>
             </Col>
             <Col lg={1}>
-                <Button variant="dark" onClick={()=>addCourse(courseName,did)}><Plus/></Button>
+                <Button variant="dark" onClick={add}><Plus/></Button>
             </Col>
         </Row>
         <Row>
             <Col>
-                        
+                        {
+                            courses.map((dcourse:dcourse)=>(
+                                <>
+                                    <h3>{dcourse.deptName}</h3>
+                                    <ListGroup>
+                                        {
+                                            dcourse.courses.map((course)=>(
+                                                <ListGroupItem>{course.cname}<Button variant="danger" className="float-end" onClick={()=>{deleteCourse(course.cid);setReload(!reload)}}><Trash/></Button></ListGroupItem>
+                                            ))
+                                        }
+                                    </ListGroup>
+                                    <br/>
+                                </>
+                            ))
+                        }
             </Col>
         </Row>
     </Container>
