@@ -29,7 +29,7 @@ export default function Admin (props: IAdminProps) {
         </Tab>
         <Tab eventKey="teachers" title="Teachers">
         </Tab>
-        <Tab eventKey="student" title="Student">
+        <Tab eventKey="student" title="Students">
         </Tab>
       </Tabs>
     </main>

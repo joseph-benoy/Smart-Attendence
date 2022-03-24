@@ -22,8 +22,8 @@ export default function Header (props: IHeaderProps) {
             </Offcanvas.Header>
             <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Link</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/register">Register</Nav.Link>
                 </Nav>
             </Offcanvas.Body>
             </Navbar.Offcanvas>
