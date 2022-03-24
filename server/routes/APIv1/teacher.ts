@@ -1,9 +1,13 @@
 import express from 'express';
-import { newTeacherAccount } from '../../controllers/teacher';
+import { getAllTeachersBydepartment, newTeacherAccount } from '../../controllers/teacher';
 
 
 const router = express.Router();
 
-router.post("/new",newTeacherAccount)
+router
+.post("/new",newTeacherAccount)
+.get("/bydepts",getAllTeachersBydepartment)
+
+
 
 export {router as teacherRouter};
