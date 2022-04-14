@@ -22,7 +22,7 @@ export default function TeacherRegistration (props: ITeacherRegistrationProps) {
     const onSubmit = async (data:Inputs) =>{
         try{
             await addTeacher(data);
-            nav("/")
+            nav("/");
         }
         catch(e){
 

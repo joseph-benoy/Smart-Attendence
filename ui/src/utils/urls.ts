@@ -17,6 +17,7 @@ export const apiUrls = {
     },
     student:{
         delete:"/api/student/delete",
-        all:"/api/student/all"
+        all:"/api/student/all",
+        new:"/api/student/new"
     }
 }

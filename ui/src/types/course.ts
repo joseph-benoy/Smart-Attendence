@@ -6,6 +6,6 @@ export interface course{
 }
 
 export interface dcourse{
-    deptName:string,
+    deptName?:string,
     courses:course[]
 }
