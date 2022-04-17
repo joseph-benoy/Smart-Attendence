@@ -13,11 +13,13 @@ export const apiUrls = {
     teacher:{
         getAllTeachersByDept:"/api/teacher/bydepts",
         delete:"/api/teacher/delete",
-        add:"/api/teacher/new"
+        add:"/api/teacher/new",
+        login:"/api/teacher/auth/login"
     },
     student:{
         delete:"/api/student/delete",
         all:"/api/student/all",
-        new:"/api/student/new"
+        new:"/api/student/new",
+        login:"/api/student/auth/login"
     }
 }

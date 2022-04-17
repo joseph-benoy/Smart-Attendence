@@ -6,7 +6,6 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     try{
         if(req.body.email){
             if(req.body.password){
-                console.log("sdf")
                 loginAdmin(req.body.email,req.body.password,res,next);
             }
             else{

@@ -1,6 +1,6 @@
 import { NextFunction,Request,Response } from "express";
-import { badRequest, internalServerError} from "../errors/customError";
-import { deleteTeacher, getTeachersByDepts, newTeacher } from "../services/teacher";
+import { badRequest, internalServerError, unAuthorizedRequest} from "../errors/customError";
+import { deleteTeacher, getTeachersByDepts, loginTeacher, newTeacher } from "../services/teacher";
 
 export const newTeacherAccount =async (req:Request,res:Response,next:NextFunction) => {
     try{
@@ -52,5 +52,23 @@ export const removeTeacher =async (req:Request,res:Response,next:NextFunction) =
     }
     catch(e){
         next(internalServerError("Something went wrong : "+e));
+    }
+}
+export const authTeacher = async(req:Request,res:Response,next:NextFunction)=>{
+    try{
+        if(req.body.email){
+            if(req.body.password){
+                loginTeacher(req.body.email,req.body.password,res,next);
+            }
+            else{
+                next(badRequest("Missing password"));
+            }
+        }   
+        else{
+            next(badRequest("Missing email"));
+        }
+    }
+    catch(e){
+        next(unAuthorizedRequest("Invalid credentials"));
     }
 }

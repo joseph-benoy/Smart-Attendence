@@ -42,3 +42,12 @@ export const addTeacher = async(data:Inputs)=>{
         alert(e.message);
     }
 }
+export const teacherLogin = async(data:{email:string,password:string})=>{
+    try{
+        const query = qs.stringify(data);
+        return await axios.post(apiUrls.teacher.login,query);
+    }
+    catch(e){
+        alert("Failed to login!");
+    }
+}
