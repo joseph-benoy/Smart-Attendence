@@ -17,9 +17,3 @@ export const loginAdmin = async(data:input)=>{
         alert("Couldn't login!");
     }
 }
-export const loginTeacher = ()=>{
-
-}
-export const loginStudent = ()=>{
-
-}

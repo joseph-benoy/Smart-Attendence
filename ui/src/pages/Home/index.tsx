@@ -3,10 +3,11 @@ import * as React from 'react';
 import Header from "../../layout/Header";
 import { Form ,Button, Container, Row, Col} from "react-bootstrap";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { loginAdmin } from "../../services/login";
+import { loginAdmin} from "../../services/login";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/store";
-import { adminLogin } from "../../store/slices/auth";
+import { adminLogin, teacherLog } from "../../store/slices/auth";
+import { teacherLogin } from "../../services/teacher";
 export interface IAppProps {
 }
 
@@ -16,7 +17,7 @@ type Inputs = {
 }
 
 export default function Home (props: IAppProps) {
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit } = useForm<Inputs>();
     const [type,setType] = React.useState<string>("admin");
     const nav:NavigateFunction = useNavigate();
     const dispatch = useAppDispatch();
@@ -31,7 +32,11 @@ export default function Home (props: IAppProps) {
             //loginAdmin(data);
         }
         else{
-            //loginAdmin(data);
+            if(await teacherLogin(data)){
+                nav("/teacher");
+                dispatch(teacherLog());
+                nav("/teacher");
+            }
         }
     },[type]);
     const changeType:React.ChangeEventHandler<HTMLSelectElement>  = (e:React.FormEvent<HTMLSelectElement>)=>{
