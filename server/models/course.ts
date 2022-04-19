@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { dept, deptId } from './dept';
+import type { session, sessionId } from './session';
 import type { student, studentId } from './student';
 
 export interface courseAttributes {
@@ -19,6 +20,18 @@ export class course extends Model<courseAttributes, courseCreationAttributes> im
   name!: string;
   did!: number;
 
+  // course hasMany session via cid
+  sessions!: session[];
+  getSessions!: Sequelize.HasManyGetAssociationsMixin<session>;
+  setSessions!: Sequelize.HasManySetAssociationsMixin<session, sessionId>;
+  addSession!: Sequelize.HasManyAddAssociationMixin<session, sessionId>;
+  addSessions!: Sequelize.HasManyAddAssociationsMixin<session, sessionId>;
+  createSession!: Sequelize.HasManyCreateAssociationMixin<session>;
+  removeSession!: Sequelize.HasManyRemoveAssociationMixin<session, sessionId>;
+  removeSessions!: Sequelize.HasManyRemoveAssociationsMixin<session, sessionId>;
+  hasSession!: Sequelize.HasManyHasAssociationMixin<session, sessionId>;
+  hasSessions!: Sequelize.HasManyHasAssociationsMixin<session, sessionId>;
+  countSessions!: Sequelize.HasManyCountAssociationsMixin;
   // course hasMany student via cid
   students!: student[];
   getStudents!: Sequelize.HasManyGetAssociationsMixin<student>;

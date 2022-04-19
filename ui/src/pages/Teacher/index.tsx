@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../hooks/store';
 import { teacherOut } from '../../store/slices/auth';
 import { useNavigate } from 'react-router-dom';
 import Students from './Students';
+import New from './New';
 export interface ITeacherProps {
 }
 
@@ -19,8 +20,9 @@ export default function Teacher (props: ITeacherProps) {
     <>
     <HeaderPlain logOut={logout}/>
     <main>
-      <Tabs defaultActiveKey="dept" className="mb-3">
+      <Tabs defaultActiveKey="new" className="mb-3">
         <Tab eventKey="new" title="New session">
+          <New/>
         </Tab>
         <Tab eventKey="all" title="All sessions">
         </Tab>
