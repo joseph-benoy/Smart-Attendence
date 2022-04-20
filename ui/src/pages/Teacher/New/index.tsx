@@ -7,8 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { apiUrls } from '../../../utils/urls';
 import qs from 'qs';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {Clipboard} from "react-bootstrap-icons";
+
 
 type Inputs = {
     name:string,
@@ -78,16 +77,6 @@ export default function New (props: INewProps) {
                 <p><b>Allow entry before : </b>{session.before}</p>
                 <p><b>QR code validity : </b>{session.validity}</p>
                 <p><b>Semester : </b>{session.sem}</p>
-                <CopyToClipboard onCopy={()=>alert("Link copied")} text={window.location.hostname+"/join/"+session.uuid+"/join"}>
-                    <Row>
-                        <Col lg={10}>
-                            <div className="copy"><p>{window.location.hostname+"/session/"+session.uuid+"/join"}</p></div>
-                        </Col>
-                        <Col>
-                            <Button variant="light"><Clipboard/></Button>
-                        </Col>
-                    </Row>
-                </CopyToClipboard>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={()=>setShow(false)}>Close</Button>

@@ -1,7 +1,6 @@
 import { NextFunction,Request,Response } from "express";
 import { badRequest, unAuthorizedRequest,internalServerError } from "../errors/customError";
 import { createSession, deleteSession, getAll } from "../services/sessions";
-import {IValidateTokenReq} from "../types/IValidateTokenReq";
 
 export const newSession =async (req:any,res:Response,next:NextFunction) => {
     try{
