@@ -1,6 +1,8 @@
 import type { Sequelize } from "sequelize";
 import { admin as _admin } from "./admin";
 import type { adminAttributes, adminCreationAttributes } from "./admin";
+import { attendance as _attendance } from "./attendance";
+import type { attendanceAttributes, attendanceCreationAttributes } from "./attendance";
 import { course as _course } from "./course";
 import type { courseAttributes, courseCreationAttributes } from "./course";
 import { dept as _dept } from "./dept";
@@ -14,6 +16,7 @@ import type { teacherAttributes, teacherCreationAttributes } from "./teacher";
 
 export {
   _admin as admin,
+  _attendance as attendance,
   _course as course,
   _dept as dept,
   _session as session,
@@ -24,6 +27,8 @@ export {
 export type {
   adminAttributes,
   adminCreationAttributes,
+  attendanceAttributes,
+  attendanceCreationAttributes,
   courseAttributes,
   courseCreationAttributes,
   deptAttributes,
@@ -38,6 +43,7 @@ export type {
 
 export function initModels(sequelize: Sequelize) {
   const admin = _admin.initModel(sequelize);
+  const attendance = _attendance.initModel(sequelize);
   const course = _course.initModel(sequelize);
   const dept = _dept.initModel(sequelize);
   const session = _session.initModel(sequelize);
@@ -52,11 +58,16 @@ export function initModels(sequelize: Sequelize) {
   dept.hasMany(course, { as: "courses", foreignKey: "did"});
   teacher.belongsTo(dept, { as: "did_dept", foreignKey: "did"});
   dept.hasMany(teacher, { as: "teachers", foreignKey: "did"});
+  attendance.belongsTo(session, { as: "sid_session", foreignKey: "sid"});
+  session.hasMany(attendance, { as: "attendances", foreignKey: "sid"});
+  attendance.belongsTo(student, { as: "st", foreignKey: "stid"});
+  student.hasMany(attendance, { as: "attendances", foreignKey: "stid"});
   session.belongsTo(teacher, { as: "tid_teacher", foreignKey: "tid"});
   teacher.hasMany(session, { as: "sessions", foreignKey: "tid"});
 
   return {
     admin: admin,
+    attendance: attendance,
     course: course,
     dept: dept,
     session: session,

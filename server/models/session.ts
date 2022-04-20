@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
+import type { attendance, attendanceId } from './attendance';
 import type { course, courseId } from './course';
 import type { teacher, teacherId } from './teacher';
 
@@ -40,6 +41,18 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
   getCid_course!: Sequelize.BelongsToGetAssociationMixin<course>;
   setCid_course!: Sequelize.BelongsToSetAssociationMixin<course, courseId>;
   createCid_course!: Sequelize.BelongsToCreateAssociationMixin<course>;
+  // session hasMany attendance via sid
+  attendances!: attendance[];
+  getAttendances!: Sequelize.HasManyGetAssociationsMixin<attendance>;
+  setAttendances!: Sequelize.HasManySetAssociationsMixin<attendance, attendanceId>;
+  addAttendance!: Sequelize.HasManyAddAssociationMixin<attendance, attendanceId>;
+  addAttendances!: Sequelize.HasManyAddAssociationsMixin<attendance, attendanceId>;
+  createAttendance!: Sequelize.HasManyCreateAssociationMixin<attendance>;
+  removeAttendance!: Sequelize.HasManyRemoveAssociationMixin<attendance, attendanceId>;
+  removeAttendances!: Sequelize.HasManyRemoveAssociationsMixin<attendance, attendanceId>;
+  hasAttendance!: Sequelize.HasManyHasAssociationMixin<attendance, attendanceId>;
+  hasAttendances!: Sequelize.HasManyHasAssociationsMixin<attendance, attendanceId>;
+  countAttendances!: Sequelize.HasManyCountAssociationsMixin;
   // session belongsTo teacher via tid
   tid_teacher!: teacher;
   getTid_teacher!: Sequelize.BelongsToGetAssociationMixin<teacher>;
