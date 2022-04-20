@@ -1,6 +1,8 @@
 import models from '../utils/db';
 import { v4 as uuidv4 } from 'uuid';
-
+import { teacher } from '../models/teacher';
+import { sequelize } from "../utils/db";
+import { QueryTypes } from "sequelize";
 
 type session = {
     name:string,
@@ -35,8 +37,10 @@ export const createSession = async (data:session) => {
 
 export const getAll =async () => {
     try{
-        const data = await models.session.findAll();
-        return data;
+        const sessions = await sequelize.query("select session.name as name,session.id as sid,session.start as start,session.before as entrybefore,session.validity as validity,session.end as end,session.date as date,session.sem as sem,session.cid as cid,session.tid as tid,teacher.name as tname from session inner join teacher where session.tid=teacher.id",{
+            type:QueryTypes.SELECT
+        })
+        return sessions;
     }
     catch(e){
         return{

@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../hooks/store';
 import { studentOut } from '../../store/slices/auth';
 import { useNavigate } from 'react-router-dom';
 import Profile from "./Profile";
+import Sessions from "./Sessions";
 export interface IStudentProps {
 }
 
@@ -20,8 +21,9 @@ export default function Student (props: IStudentProps) {
     <>
     <HeaderPlain logOut={logout}/>
     <main>
-      <Tabs defaultActiveKey="session" className="mb-3">
+      <Tabs defaultActiveKey="sessions" className="mb-3">
         <Tab eventKey="sessions" title="Sessions">
+          <Sessions/>
         </Tab>
         <Tab eventKey="profile" title="Profile">
           <Profile/>
