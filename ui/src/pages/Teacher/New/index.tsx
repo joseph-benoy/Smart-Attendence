@@ -78,7 +78,7 @@ export default function New (props: INewProps) {
                 <p><b>Allow entry before : </b>{session.before}</p>
                 <p><b>QR code validity : </b>{session.validity}</p>
                 <p><b>Semester : </b>{session.sem}</p>
-                <CopyToClipboard onCopy={()=>alert("Link copied")} text={window.location.hostname+"/session/"+session.uuid+"/join"}>
+                <CopyToClipboard onCopy={()=>alert("Link copied")} text={window.location.hostname+"/join/"+session.uuid+"/join"}>
                     <Row>
                         <Col lg={10}>
                             <div className="copy"><p>{window.location.hostname+"/session/"+session.uuid+"/join"}</p></div>

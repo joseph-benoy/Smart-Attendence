@@ -10,7 +10,8 @@ type session = {
     before:number,
     validity:number,
     sem:number,
-    cid:number
+    cid:number,
+    tid:number
 }
 
 export const createSession = async (data:session) => {

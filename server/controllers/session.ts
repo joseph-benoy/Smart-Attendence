@@ -1,10 +1,11 @@
 import { NextFunction,Request,Response } from "express";
 import { badRequest, unAuthorizedRequest,internalServerError } from "../errors/customError";
 import { createSession, deleteSession, getAll } from "../services/sessions";
+import {IValidateTokenReq} from "../types/IValidateTokenReq";
 
-export const newSession =async (req:Request,res:Response,next:NextFunction) => {
+export const newSession =async (req:any,res:Response,next:NextFunction) => {
     try{
-        const result = await createSession(req.body);
+        const result = await createSession({...req.body,tid:req.id});
         if(result.error){
             throw new Error(result.error);
         }

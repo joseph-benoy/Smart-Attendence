@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { course, courseId } from './course';
+import type { teacher, teacherId } from './teacher';
 
 export interface sessionAttributes {
   id: number;
@@ -13,6 +14,7 @@ export interface sessionAttributes {
   before: number;
   validity: number;
   uuid: string;
+  tid: number;
 }
 
 export type sessionPk = "id";
@@ -31,12 +33,18 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
   before!: number;
   validity!: number;
   uuid!: string;
+  tid!: number;
 
   // session belongsTo course via cid
   cid_course!: course;
   getCid_course!: Sequelize.BelongsToGetAssociationMixin<course>;
   setCid_course!: Sequelize.BelongsToSetAssociationMixin<course, courseId>;
   createCid_course!: Sequelize.BelongsToCreateAssociationMixin<course>;
+  // session belongsTo teacher via tid
+  tid_teacher!: teacher;
+  getTid_teacher!: Sequelize.BelongsToGetAssociationMixin<teacher>;
+  setTid_teacher!: Sequelize.BelongsToSetAssociationMixin<teacher, teacherId>;
+  createTid_teacher!: Sequelize.BelongsToCreateAssociationMixin<teacher>;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof session {
     return session.init({
@@ -85,6 +93,14 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
     uuid: {
       type: DataTypes.STRING(200),
       allowNull: false
+    },
+    tid: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'teacher',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -104,6 +120,13 @@ export class session extends Model<sessionAttributes, sessionCreationAttributes>
         using: "BTREE",
         fields: [
           { name: "cid" },
+        ]
+      },
+      {
+        name: "session_ibfk_2",
+        using: "BTREE",
+        fields: [
+          { name: "tid" },
         ]
       },
     ]

@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { dept, deptId } from './dept';
+import type { session, sessionId } from './session';
 
 export interface teacherAttributes {
   id: number;
@@ -27,6 +28,18 @@ export class teacher extends Model<teacherAttributes, teacherCreationAttributes>
   getDid_dept!: Sequelize.BelongsToGetAssociationMixin<dept>;
   setDid_dept!: Sequelize.BelongsToSetAssociationMixin<dept, deptId>;
   createDid_dept!: Sequelize.BelongsToCreateAssociationMixin<dept>;
+  // teacher hasMany session via tid
+  sessions!: session[];
+  getSessions!: Sequelize.HasManyGetAssociationsMixin<session>;
+  setSessions!: Sequelize.HasManySetAssociationsMixin<session, sessionId>;
+  addSession!: Sequelize.HasManyAddAssociationMixin<session, sessionId>;
+  addSessions!: Sequelize.HasManyAddAssociationsMixin<session, sessionId>;
+  createSession!: Sequelize.HasManyCreateAssociationMixin<session>;
+  removeSession!: Sequelize.HasManyRemoveAssociationMixin<session, sessionId>;
+  removeSessions!: Sequelize.HasManyRemoveAssociationsMixin<session, sessionId>;
+  hasSession!: Sequelize.HasManyHasAssociationMixin<session, sessionId>;
+  hasSessions!: Sequelize.HasManyHasAssociationsMixin<session, sessionId>;
+  countSessions!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof teacher {
     return teacher.init({
