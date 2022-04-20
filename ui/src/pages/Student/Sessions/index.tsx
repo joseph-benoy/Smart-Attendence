@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as React from 'react';
 import { Container, Row ,Col ,Card,Button} from 'react-bootstrap';
 import { session } from '../../../types/session';
+import { accessJoin } from '../../../utils/session';
 import { apiUrls } from '../../../utils/urls';
 
 export interface ISessionsProps {
@@ -27,7 +28,7 @@ export default function Sessions (props: ISessionsProps) {
             {
                 sessions.map((item)=>(
                     <Col>
-                        <Card style={{ width: '18rem' }}>
+                        <Card className="mb-2" bg={accessJoin(item.date,item.start,item.end,item.entrybefore,item.validity)?'danger':'light'} >
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>
                                 <Card.Text>
