@@ -23,9 +23,17 @@ export const authSlice = createSlice({
         teacherOut:(state)=>{
             sessionStorage.removeItem("teacherLogin");
             state.isTeacherAuth = false;
+        },
+        studentLog:(state)=>{
+            sessionStorage.setItem("studentLogin","yes");
+            state.isStudentAuth = true;
+        },
+        studentOut:(state)=>{
+            sessionStorage.removeItem("studentLogin");
+            state.isTeacherAuth = false;
         }
     }
 })
 
-export const {adminLogin,adminLogout,teacherLog,teacherOut} = authSlice.actions;
+export const {adminLogin,adminLogout,teacherLog,teacherOut,studentLog,studentOut} = authSlice.actions;
 export default authSlice.reducer;

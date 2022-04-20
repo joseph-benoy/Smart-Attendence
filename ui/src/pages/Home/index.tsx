@@ -6,8 +6,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { loginAdmin} from "../../services/login";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/store";
-import { adminLogin, teacherLog } from "../../store/slices/auth";
+import { adminLogin, studentLog, teacherLog } from "../../store/slices/auth";
 import { teacherLogin } from "../../services/teacher";
+import { studentLogin } from "../../services/student";
 export interface IAppProps {
 }
 
@@ -29,11 +30,12 @@ export default function Home (props: IAppProps) {
             }
         }
         else if(type==="student"){
-            //loginAdmin(data);
-        }
+            if(await studentLogin(data)){
+                dispatch(studentLog());
+                nav("/student");
+            }        }
         else{
             if(await teacherLogin(data)){
-                nav("/teacher");
                 dispatch(teacherLog());
                 nav("/teacher");
             }
@@ -56,9 +58,9 @@ export default function Home (props: IAppProps) {
                         <Form.Group className="mb-3">
                             <Form.Label>Designation</Form.Label>
                             <Form.Select onChange={changeType}>
-                                <option>Admin</option>
-                                <option>Teacher</option>
-                                <option>Student</option>
+                                <option value={"admin"}>Admin</option>
+                                <option value={"teacher"}>Teacher</option>
+                                <option value={"student"}>Student</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">

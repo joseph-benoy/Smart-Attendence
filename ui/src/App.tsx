@@ -5,6 +5,7 @@ import ProtectedRoute from './elements/ProtectedRoute';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
 import Register from './pages/Register';
+import Student from './pages/Student';
 import Teacher from './pages/Teacher';
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/register" element={<Register/>}></Route>
           <Route path="/admin" element={<ProtectedRoute type="admin" component={<Admin/>}/>}></Route>
           <Route path="/teacher" element={<ProtectedRoute type="teacher" component={<Teacher/>}/>}></Route>
+          <Route path="/student" element={<ProtectedRoute type="student" component={<Student/>}/>}></Route>
           </Routes>
       </div>
     </Router>

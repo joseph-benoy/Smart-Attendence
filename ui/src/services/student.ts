@@ -21,3 +21,14 @@ export const addStudent = async(data:Inputs)=>{
         alert(e.message);
     }
 }
+export const studentLogin = async(data:{email:string,password:string})=>{
+    try{
+        const query = qs.stringify(data);
+        await axios.post(apiUrls.student.login,query);
+        return true;
+    }
+    catch(e){
+        alert("Failed to login!");
+        return false;
+    }
+}

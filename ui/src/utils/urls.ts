@@ -26,5 +26,5 @@ export const apiUrls = {
         new:"/api/session/new",
         all:"/api/session/all",
         delete:"/api/session/delete"
-    }
+    },
 }
