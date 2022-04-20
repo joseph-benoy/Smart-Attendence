@@ -9,6 +9,7 @@ import { useAppDispatch } from "../../hooks/store";
 import { adminLogin, studentLog, teacherLog } from "../../store/slices/auth";
 import { teacherLogin } from "../../services/teacher";
 import { studentLogin } from "../../services/student";
+import { updateStudent } from "../../store/slices/student";
 export interface IAppProps {
 }
 
@@ -30,10 +31,13 @@ export default function Home (props: IAppProps) {
             }
         }
         else if(type==="student"){
-            if(await studentLogin(data)){
+            const studentData = await studentLogin(data);
+            if(studentData){
                 dispatch(studentLog());
+                dispatch(updateStudent(studentData))
                 nav("/student");
-            }        }
+            }        
+        }
         else{
             if(await teacherLogin(data)){
                 dispatch(teacherLog());

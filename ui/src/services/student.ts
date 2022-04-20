@@ -24,8 +24,8 @@ export const addStudent = async(data:Inputs)=>{
 export const studentLogin = async(data:{email:string,password:string})=>{
     try{
         const query = qs.stringify(data);
-        await axios.post(apiUrls.student.login,query);
-        return true;
+        const res = await axios.post(apiUrls.student.login,query);
+        return res.data;
     }
     catch(e){
         alert("Failed to login!");
