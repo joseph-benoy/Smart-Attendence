@@ -43,3 +43,20 @@ export const getAll =async () => {
         }
     }
 }
+export const deleteSession = async(id:number)=>{
+    try{
+        await models.session.destroy({
+            where:{
+                id:id
+            }
+        });
+        return {
+            message:"session deleted"
+        }
+    }
+    catch(e){
+        return{
+            error:e.message
+        }
+    }
+}
