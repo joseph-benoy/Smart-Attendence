@@ -1,0 +1,7 @@
+.copy{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 1rem;
+    color: rgba(0, 0, 0, 0.7) !important;
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Row ,Form,Button} from 'react-bootstrap';
+import { Col, Container, Row ,Form,Button,Modal} from 'react-bootstrap';
 import useDept from '../../../hooks/useDept';
 import useCourseByDept from '../../../hooks/useCoureByDept';
 import { course } from '../../../types/course';
@@ -7,6 +7,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { apiUrls } from '../../../utils/urls';
 import qs from 'qs';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {Clipboard} from "react-bootstrap-icons";
 
 type Inputs = {
     name:string,
@@ -16,7 +18,8 @@ type Inputs = {
     cid:string,
     sem:string,
     before:string,
-    validity:string
+    validity:string,
+    uuid?:string
 };
 
 
@@ -28,7 +31,7 @@ export default function New (props: INewProps) {
     const [deptName,setDeptName] = React.useState<string>('');
     const courses = useCourseByDept(deptName);
     const { register, handleSubmit,  formState: { errors } } = useForm<Inputs>();
-    const [session,setSession] = React.useState({});
+    const [session,setSession] = React.useState<Inputs>({} as Inputs);
     const [show,setShow] = React.useState<boolean>(false);
     const onSubmit: SubmitHandler<Inputs> = async (data)=>{
         try{
@@ -42,7 +45,7 @@ export default function New (props: INewProps) {
     }
     var today:Date | string = new Date();
     var dd:string | number = today.getDate();
-    var mm:string | number = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+    var mm:string | number = today.getMonth()+1;
     var yyyy = today.getFullYear();
     if(dd<10){
     dd='0'+dd
@@ -54,6 +57,43 @@ export default function New (props: INewProps) {
     document.getElementById("datefield")?.setAttribute('min',today);
   return (
     <Container>
+        <Row>
+        <Modal
+            show={show}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            >
+            <Modal.Header>
+                <Modal.Title id="contained-modal-title-vcenter">
+                Added new session
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <h4>{session.name}</h4>
+                <p><b>Session ID : </b>{session.uuid}</p>
+                <p><b>Date : </b>{session.date}</p>
+                <p><b>Start time : </b>{session.start}</p>
+                <p><b>End time : </b>{session.end}</p>
+                <p><b>Allow entry before : </b>{session.before}</p>
+                <p><b>QR code validity : </b>{session.validity}</p>
+                <p><b>Semester : </b>{session.sem}</p>
+                <CopyToClipboard onCopy={()=>alert("Link copied")} text={window.location.hostname+"/session/"+session.uuid+"/join"}>
+                    <Row>
+                        <Col lg={10}>
+                            <div className="copy"><p>{window.location.hostname+"/session/"+session.uuid+"/join"}</p></div>
+                        </Col>
+                        <Col>
+                            <Button variant="light"><Clipboard/></Button>
+                        </Col>
+                    </Row>
+                </CopyToClipboard>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={()=>setShow(false)}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+        </Row>
         <Row>
             <Col>
                 <h3>New session</h3>
