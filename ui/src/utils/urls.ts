@@ -21,5 +21,10 @@ export const apiUrls = {
         all:"/api/student/all",
         new:"/api/student/new",
         login:"/api/student/auth/login"
+    },
+    session:{
+        new:"/api/session/new",
+        all:"/api/session/all",
+        delete:"/api/session/delete"
     }
 }

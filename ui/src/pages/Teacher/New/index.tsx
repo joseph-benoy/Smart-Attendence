@@ -4,6 +4,9 @@ import useDept from '../../../hooks/useDept';
 import useCourseByDept from '../../../hooks/useCoureByDept';
 import { course } from '../../../types/course';
 import { useForm, SubmitHandler } from "react-hook-form";
+import axios from 'axios';
+import { apiUrls } from '../../../utils/urls';
+import qs from 'qs';
 
 type Inputs = {
     name:string,
@@ -25,7 +28,30 @@ export default function New (props: INewProps) {
     const [deptName,setDeptName] = React.useState<string>('');
     const courses = useCourseByDept(deptName);
     const { register, handleSubmit,  formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const [session,setSession] = React.useState({});
+    const [show,setShow] = React.useState<boolean>(false);
+    const onSubmit: SubmitHandler<Inputs> = async (data)=>{
+        try{
+            const res = await axios.post(apiUrls.session.new,qs.stringify(data));
+            setSession(res.data);
+            setShow(true);
+        }
+        catch(e){
+            alert(e.message);
+        }
+    }
+    var today:Date | string = new Date();
+    var dd:string | number = today.getDate();
+    var mm:string | number = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if(dd<10){
+    dd='0'+dd
+    } 
+    if(mm<10){
+    mm='0'+mm
+    } 
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("datefield")?.setAttribute('min',today);
   return (
     <Container>
         <Row>
@@ -42,7 +68,7 @@ export default function New (props: INewProps) {
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Date</Form.Label>
-                    <Form.Control required type="date" placeholder="Enter session date" {...register("date")}/>
+                    <Form.Control id="datefield" required type="date" placeholder="Enter session date" {...register("date")}/>
                 </Form.Group>
                 <Row>
                     <Col>
