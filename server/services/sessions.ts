@@ -31,3 +31,15 @@ export const createSession = async (data:session) => {
         }
     }
 }
+
+export const getAll =async () => {
+    try{
+        const data = await models.session.findAll();
+        return data;
+    }
+    catch(e){
+        return{
+            error:e.message
+        }
+    }
+}
