@@ -74,8 +74,8 @@ export default function New (props: INewProps) {
                 <p><b>Date : </b>{session.date}</p>
                 <p><b>Start time : </b>{session.start}</p>
                 <p><b>End time : </b>{session.end}</p>
-                <p><b>Allow entry before : </b>{session.before}</p>
-                <p><b>QR code validity : </b>{session.validity}</p>
+                <p><b>Allow entry before : </b>{session.before} minutes</p>
+                <p><b>QR code validity : </b>{session.validity} minutes</p>
                 <p><b>Semester : </b>{session.sem}</p>
             </Modal.Body>
             <Modal.Footer>

@@ -3,7 +3,9 @@ import bcrypt from "bcrypt";
 import { sequelize } from "../utils/db";
 import { QueryTypes } from "sequelize";
 import { student } from "../models/student";
-
+import { NextFunction,Response } from 'express';
+import { createToken } from '../middlewares/jwt';
+import { unAuthorizedRequest } from "../errors/customError";
 export const createStudent =async (name:string,email:string,password:string,cid:number,sem:number) => {
     try{
         const pass = await bcrypt.hash(password,10);
@@ -53,4 +55,32 @@ export const deleteStudent =async (id:number) => {
             error:e.message
         }
     }
+}
+export const loginStudent = (email:string,password:string,res:Response,next:NextFunction):any=>{
+    models.student.findOne({
+        where:{
+            email:email
+        },
+        raw:true
+    }).then((data)=>{
+        bcrypt.compare(password,data!.password)
+        .then((result)=>{
+            if(result){
+                const accessToken = createToken({
+                    email:data!.email,
+                    id:data!.id
+                });
+                return res.cookie('access-token',accessToken,{
+                    maxAge:Number(process.env.COOKIE_MAX_AGE),
+                    httpOnly:true
+                }).json(data);
+            }
+            else{
+                return next(unAuthorizedRequest("Invalid password"));
+            }
+        })
+    })
+    .catch((reason)=>{
+        return next(unAuthorizedRequest("Invalid email"));
+    })
 }
