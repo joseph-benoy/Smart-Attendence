@@ -1,0 +1,16 @@
+import { NextFunction,Request,Response } from "express";
+import { badRequest, unAuthorizedRequest,internalServerError } from "../errors/customError";
+import { createSession } from "../services/sessions";
+
+export const newSession =async (req:Request,res:Response,next:NextFunction) => {
+    try{
+        const result = await createSession(req.body);
+        if(result.error){
+            throw new Error(result.error);
+        }
+        return res.json(result);
+    }
+    catch(e){
+        next(internalServerError("Something went wrong : "+e));
+    }
+}
