@@ -13,13 +13,21 @@ export default function Profile (props: IProfileProps) {
     <Container>
         <Row>
             <Col>
-                <h3>Profile</h3>
+                <h3 style={{textAlign:"center"}}>Profile</h3>
             </Col>
         </Row>
         <Row>
             <Col>
-                <QRCode value={student.id.toString()}/>
+                <QRCode value={student.id.toString()} className="qr"/>
             </Col>
+            <Col className="studentCol">
+                <p><b>Name : </b>{student.name}</p>
+                <p><b>Email : </b>{student.email}</p>
+                <p><b>Sem : </b>{student.sem}</p>
+            </Col>
+        </Row>
+        <Row>
+
         </Row>
     </Container>
   );
