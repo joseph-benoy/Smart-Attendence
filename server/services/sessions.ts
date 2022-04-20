@@ -65,3 +65,16 @@ export const deleteSession = async(id:number)=>{
         }
     }
 }
+export const getSessionByCidSem =async (cid:number,sem:number) => {
+    try{
+        const sessions = await sequelize.query(`select session.name as name,session.id as sid,session.start as start,session.before as entrybefore,session.validity as validity,session.end as end,session.date as date,session.sem as sem,session.cid as cid,session.tid as tid,teacher.name as tname from session inner join teacher where session.tid=teacher.id and session.cid=${cid} and session.sem=${sem}`,{
+            type:QueryTypes.SELECT
+        })
+        return sessions;
+    }
+    catch(e){
+        return{
+            error:e.message
+        }
+    }
+}
