@@ -4,14 +4,20 @@ import { Container, Row ,Col ,Card,Button} from 'react-bootstrap';
 import { session } from '../../../types/session';
 import { accessJoin } from '../../../utils/session';
 import { apiUrls } from '../../../utils/urls';
+import qs from 'qs';
+import { useAppSelector } from '../../../hooks/store';
 
 export interface ISessionsProps {
 }
 
 export default function Sessions (props: ISessionsProps) {
     const [sessions,setSessions] = React.useState<Array<session>>([]);
+    const student = useAppSelector((state)=>state.student)
     React.useEffect(()=>{
-        axios.get(apiUrls.session.all).then((res)=>{
+        axios.post(apiUrls.session.bySem,qs.stringify({
+            cid:student.cid,
+            sem:student.sem
+        })).then((res)=>{
             setSessions(res.data);
         }).catch((e)=>{
             alert("Couldn't fetch sessions");
@@ -26,9 +32,10 @@ export default function Sessions (props: ISessionsProps) {
         </Row>
         <Row>
             {
-                sessions.map((item)=>(
-                    <Col>
-                        <Card className="mb-2" bg={accessJoin(item.date,item.start,item.end,item.entrybefore,item.validity)?'danger':'light'} >
+                sessions.map((item)=>{
+                    const permit = accessJoin(item.date,item.start,item.end,item.entrybefore,item.validity)
+                    return(                    <Col>
+                        <Card className="mb-2" bg={permit?'danger':'light'} text={permit?'light':'dark'} >
                             <Card.Body>
                                 <Card.Title>{item.name}</Card.Title>
                                 <Card.Text>
@@ -39,11 +46,11 @@ export default function Sessions (props: ISessionsProps) {
                                     <p><b>Access : </b>{item.validity} minutes</p>
                                     <p><b>Teacher : </b>{item.tname}</p>
                                 </Card.Text>
-                                <Button variant="primary">Attend</Button>
+                                <Button variant="primary" disabled={!permit}>Attend</Button>
                             </Card.Body>
                         </Card>
-                    </Col>
-                ))
+                    </Col>);
+                })
             }
         </Row>
     </Container>
