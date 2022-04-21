@@ -130,7 +130,8 @@ export const getSessionById =async (id:number) => {
         return {
             session:session,
             attendance:attendance,
-            studentCount:studentCount
+            // @ts-ignore
+            studentCount:studentCount[0].student_count
         }
 
     }
