@@ -1,7 +1,7 @@
 // @ts-nocheck
 import * as React from 'react';
 import HeaderPlain from '../../layout/HeaderPlain';
-import { Tabs,Tab, Container, Row,Col } from 'react-bootstrap';
+import {  Container, Row,Col, Table } from 'react-bootstrap';
 import { useAppDispatch } from '../../hooks/store';
 import { teacherOut } from '../../store/slices/auth';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,7 +9,6 @@ import axios from 'axios';
 import { apiUrls } from '../../utils/urls';
 import QueryString from 'qs';
 import { session } from '../../types/session';
-import { Pie } from 'react-chartjs-2';
 
 export interface ISessionProps {
 }
@@ -47,15 +46,43 @@ export default function Session (props: ISessionProps) {
         <Container>
             <Row>
                 <Col>
-                    <h3>{sessionData!.session.name}</h3>
+                    <br/><h3>Session : {sessionData!.session.name}</h3>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <p><b>Date : </b>{sessionData!.session.date}</p>
-                    <p><b>Start time : </b>{sessionData!.session.start}</p>
-                    <p><b>End time : </b>{sessionData!.session.end}</p>
-                    <p><b>Participation : </b>{sessionData!.attendance.length} out of {sessionData!.studentCount}</p>
+                    <p><b>Start time : </b>{sessionData!.session.start}&nbsp;&nbsp;&nbsp;&nbsp;<b>End time : </b>{sessionData!.session.end}</p>
+                    <p></p>
+                    <p><b>Sem : </b>{sessionData!.session.sem}&nbsp;&nbsp;&nbsp;&nbsp;<b>Participation : </b>{sessionData!.attendance.length} out of {sessionData!.studentCount}</p>
+                    <p></p>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h5>Participants</h5>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                sessionData.attendance.map((item)=>(
+                                    <tr>
+                                        <td>{item.studId}</td>
+                                        <td>{item.sname}</td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </Table>
                 </Col>
             </Row>
         </Container>
