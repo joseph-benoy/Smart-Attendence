@@ -9,5 +9,6 @@ export interface session{
     cid:number,
     tid:number,
     uuid:string,
-    tname:string
+    tname:string,
+    sid:number
 }

@@ -6,13 +6,15 @@ import { accessJoin } from '../../../utils/session';
 import { apiUrls } from '../../../utils/urls';
 import qs from 'qs';
 import { useAppSelector } from '../../../hooks/store';
+import { useNavigate } from 'react-router-dom';
 
 export interface ISessionsProps {
 }
 
 export default function Sessions (props: ISessionsProps) {
     const [sessions,setSessions] = React.useState<Array<session>>([]);
-    const student = useAppSelector((state)=>state.student)
+    const student = useAppSelector((state)=>state.student);
+    const nav = useNavigate();
     React.useEffect(()=>{
         axios.post(apiUrls.session.bySem,qs.stringify({
             cid:student.cid,
@@ -23,6 +25,9 @@ export default function Sessions (props: ISessionsProps) {
             alert("Couldn't fetch sessions");
         })
     },[]);
+    const joinSession = (sid:number)=>{
+        nav(`/join/${sid}`);
+    }
   return (
     <Container>
         <Row>
@@ -46,7 +51,7 @@ export default function Sessions (props: ISessionsProps) {
                                     <p><b>Access : </b>{item.validity} minutes</p>
                                     <p><b>Teacher : </b>{item.tname}</p>
                                 </Card.Text>
-                                <Button variant="primary" disabled={!permit}>Attend</Button>
+                                <Button variant="primary" disabled={!permit} onClick={()=>joinSession(item.sid)}>Attend</Button>
                             </Card.Body>
                         </Card>
                     </Col>);
