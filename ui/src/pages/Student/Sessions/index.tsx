@@ -20,7 +20,7 @@ export default function Sessions (props: ISessionsProps) {
             cid:student.cid,
             sem:student.sem
         })).then((res)=>{
-            setSessions(res.data);
+            setSessions(res.data.reverse());
         }).catch((e)=>{
             alert("Couldn't fetch sessions");
         })
@@ -51,7 +51,7 @@ export default function Sessions (props: ISessionsProps) {
                                     <p><b>Access : </b>{item.validity} minutes</p>
                                     <p><b>Teacher : </b>{item.tname}</p>
                                 </Card.Text>
-                                <Button variant="primary" disabled={!permit} onClick={()=>joinSession(item.sid)}>Attend</Button>
+                                <Button variant="primary" disabled={!permit} onClick={()=>joinSession(item.sid)}>{permit?"Attend":"Session finished"}</Button>
                             </Card.Body>
                         </Card>
                     </Col>);
