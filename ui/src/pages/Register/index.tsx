@@ -29,12 +29,12 @@ export default function Register (props: IRegsiterProps) {
             </Row>
           <Row>
               <Col lg={6}>
-                <FilePerson/>
-                <Button variant="primary" onClick={()=>setTModal(true)}>New teacher</Button>
+                <FilePerson className="regIcon"/><br/>
+                <Button variant="primary" className="regBtn" onClick={()=>setTModal(true)}>New teacher</Button>
               </Col>
               <Col lg={6}>
-                <PersonCircle/>
-                <Button variant="primary"  onClick={()=>setSModal(true)}>New student</Button>
+                <PersonCircle  className="regIcon"/><br/>
+                <Button variant="primary" className="regBtn"  onClick={()=>setSModal(true)}>New student</Button>
               </Col>
           </Row>
       </Container>
