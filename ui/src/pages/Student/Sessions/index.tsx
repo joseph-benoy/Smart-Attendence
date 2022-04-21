@@ -51,7 +51,7 @@ export default function Sessions (props: ISessionsProps) {
                                     <p><b>Access : </b>{item.validity} minutes</p>
                                     <p><b>Teacher : </b>{item.tname}</p>
                                 </Card.Text>
-                                <Button variant="primary" disabled={!permit} onClick={()=>joinSession(item.sid)}>{permit?"Attend":"Session finished"}</Button>
+                                <Button variant="primary" disabled={!permit} onClick={()=>joinSession(item.sid)}>{permit?"Attend":"session inaccessible"}</Button>
                             </Card.Body>
                         </Card>
                     </Col>);
