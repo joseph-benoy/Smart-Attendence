@@ -78,3 +78,36 @@ export const getSessionByCidSem =async (cid:number,sem:number) => {
         }
     }
 }
+export const markAttendance = async(sessionId:number,sid:number,cid:number,sem:number)=>{
+    try{
+        const sessionData = await models.session.findOne({
+            where:{
+                id:sessionId
+            }
+        });
+        if(sessionData?.cid==cid&&sessionData?.sem==sem){
+            const res = await models.attendance.findOne({
+                where:{
+                    stid:sid,
+                    sid:sessionId
+                }
+            });
+            if(res===null){
+                await models.attendance.create({
+                    sid:sessionId,
+                    stid:sid,
+                })
+                return {
+                    message:`Marked attendance by ${sid} on ${new Date().toUTCString()}`
+                }
+            }
+            throw new Error("Already marked attendance");
+        }
+        throw new Error("Session and student credentials don't match");
+    }
+    catch(e){
+        return{
+            error:e.message
+        }
+    }
+}

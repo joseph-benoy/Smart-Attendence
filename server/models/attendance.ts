@@ -7,6 +7,7 @@ export interface attendanceAttributes {
   id: number;
   sid: number;
   stid: number;
+  logtime: Date;
 }
 
 export type attendancePk = "id";
@@ -18,6 +19,7 @@ export class attendance extends Model<attendanceAttributes, attendanceCreationAt
   id!: number;
   sid!: number;
   stid!: number;
+  logtime!: Date;
 
   // attendance belongsTo session via sid
   sid_session!: session;
@@ -53,6 +55,10 @@ export class attendance extends Model<attendanceAttributes, attendanceCreationAt
         model: 'student',
         key: 'id'
       }
+    },
+    logtime: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
   }, {
     sequelize,
