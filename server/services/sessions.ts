@@ -96,6 +96,7 @@ export const markAttendance = async(sessionId:number,sid:number,cid:number,sem:n
                 await models.attendance.create({
                     sid:sessionId,
                     stid:sid,
+                    logtime:new Date()
                 })
                 return {
                     message:`Marked attendance by ${sid} on ${new Date().toUTCString()}`
