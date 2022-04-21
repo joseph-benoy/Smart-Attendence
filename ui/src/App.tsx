@@ -18,7 +18,7 @@ function App() {
           <Route path="/admin" element={<ProtectedRoute type="admin" component={<Admin/>}/>}></Route>
           <Route path="/teacher" element={<ProtectedRoute type="teacher" component={<Teacher/>}/>}></Route>
           <Route path="/student" element={<ProtectedRoute type="student" component={<Student/>}/>}></Route>
-          <Route path="/join/:sid" element={<ProtectedRoute type="student" component={<Attend/>}/>}></Route>
+          <Route path="/join/:sessionId" element={<ProtectedRoute type="student" component={<Attend/>}/>}></Route>
           </Routes>
       </div>
     </Router>

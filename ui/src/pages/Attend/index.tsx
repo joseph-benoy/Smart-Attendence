@@ -1,10 +1,13 @@
 import * as React from 'react';
 import HeaderPlain from '../../layout/HeaderPlain';
-import { useAppDispatch } from '../../hooks/store';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { studentOut } from '../../store/slices/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { QrReader } from 'react-qr-reader';
 import { Col, Container, Row,Spinner } from 'react-bootstrap';
+import axios from 'axios';
+import { apiUrls } from '../../utils/urls';
+import qs from "qs";
 export interface IAttendProps {
 }
 
@@ -18,6 +21,8 @@ export default function Attend (props: IAttendProps) {
   const [data, setData] = React.useState('');
   const [spin,setSpin] = React.useState<boolean>(false);
   const [message,setMessage] =  React.useState('Scan the student QR code');
+  const {sessionId} = useParams();
+  const student = useAppSelector((state)=>state.student)
   return (
     <>
     <HeaderPlain logOut={logout}/>
@@ -28,7 +33,17 @@ export default function Attend (props: IAttendProps) {
                   setData(result.getText());
                   setSpin(true);
                   setMessage("Validating Student ID...");
-                    
+                    axios.post(apiUrls.session.mark,qs.stringify({
+                        sessionId:sessionId,
+                        sid:student.id,
+                        cid:student.cid,
+                        sem:student.sem
+                    })).then((res)=>{
+                        setMessage(res.data);
+                        setSpin(false);
+                    }).catch((e)=>{
+                        alert(e.message);
+                    })
                 }
       
                 if (!!error) {

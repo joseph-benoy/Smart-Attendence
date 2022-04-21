@@ -99,7 +99,8 @@ export const markAttendance = async(sessionId:number,sid:number,cid:number,sem:n
                     logtime:new Date()
                 })
                 return {
-                    message:`Marked attendance by ${sid} on ${new Date().toUTCString()}`
+                    message:`Marked attendance by ${sid} on ${new Date().toUTCString()}`,
+                    date:new Date().toUTCString()
                 }
             }
             throw new Error("Already marked attendance");

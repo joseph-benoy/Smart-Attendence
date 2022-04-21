@@ -26,6 +26,7 @@ export const apiUrls = {
         new:"/api/session/new",
         all:"/api/session/all",
         delete:"/api/session/delete",
-        bySem:"/api/session/getbysem"
+        bySem:"/api/session/getbysem",
+        mark:"/api/session/attendance"
     },
 }
