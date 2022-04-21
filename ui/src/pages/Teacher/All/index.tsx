@@ -1,8 +1,10 @@
 import axios from 'axios';
 import * as React from 'react';
-import { Col, Container, Row,Table } from 'react-bootstrap';
+import { Button, Col, Container, Row,Table } from 'react-bootstrap';
 import { apiUrls } from '../../../utils/urls';
 import {session} from "../../../types/session";
+import { ArrowLeftSquare, ArrowRight } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
 export interface IAllProps {
 }
 
@@ -15,6 +17,7 @@ export default function All (props: IAllProps) {
             alert("Couldn't fetch sessions");
         })
     },[]);
+    const nav = useNavigate();
   return (
     <Container>
         <Row>
@@ -33,6 +36,7 @@ export default function All (props: IAllProps) {
                     <th>Start time</th>
                     <th>End time</th>
                     <th>Teacher</th>
+                    <th>Course</th>
                     <th>Sem</th>
                     </tr>
                 </thead>
@@ -46,7 +50,9 @@ export default function All (props: IAllProps) {
                                 <td>{session.start}</td>
                                 <td>{session.end}</td>
                                 <td>{session.tname}</td>
+                                <td>{session.cname}</td>
                                 <td>{session.sem}</td>
+                                <td><Button variant="dark" onClick={()=>nav(`/session/${session.sid}`)}><ArrowRight/></Button></td>
                             </tr>
                         ))
                     }   

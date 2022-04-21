@@ -6,6 +6,7 @@ import Admin from './pages/Admin';
 import Attend from './pages/Attend';
 import Home from './pages/Home';
 import Register from './pages/Register';
+import Session from './pages/Session';
 import Student from './pages/Student';
 import Teacher from './pages/Teacher';
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/teacher" element={<ProtectedRoute type="teacher" component={<Teacher/>}/>}></Route>
           <Route path="/student" element={<ProtectedRoute type="student" component={<Student/>}/>}></Route>
           <Route path="/join/:sessionId" element={<ProtectedRoute type="student" component={<Attend/>}/>}></Route>
+          <Route path="/session/:sessionId" element={<ProtectedRoute type="teacher" component={<Session/>}/>}></Route>
           </Routes>
       </div>
     </Router>

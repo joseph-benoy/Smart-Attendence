@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { teacher } from '../models/teacher';
 import { sequelize } from "../utils/db";
 import { QueryTypes } from "sequelize";
+import { studentBySem } from '../controllers/student';
 
 type session = {
     name:string,
@@ -106,6 +107,32 @@ export const markAttendance = async(sessionId:number,sid:number,cid:number,sem:n
             throw new Error("Already marked attendance");
         }
         throw new Error("Session and student credentials don't match");
+    }
+    catch(e){
+        return{
+            error:e.message
+        }
+    }
+}
+export const getSessionById =async (id:number) => {
+    try{
+        const session = await models.session.findOne({
+            where:{
+                id:id
+            }
+        })
+        const attendance = await  sequelize.query(`select student.id as studId,student.name as sname from student,attendance where student.id = attendance.stid and sid=${id}`,{
+            type:QueryTypes.SELECT
+        })
+        const studentCount = await sequelize.query(`select count(id) as student_count from student group by cid having student.cid=${session?.cid}`,{
+            type:QueryTypes.SELECT
+        })
+        return {
+            session:session,
+            attendance:attendance,
+            studentCount:studentCount
+        }
+
     }
     catch(e){
         return{
